@@ -1,0 +1,163 @@
+{
+  "$comment": "Seed content for The Living Method website (cb036e0e-b3fe-4d22-b794-8f5225546646). Requires editor/admin role in Dru's Organisation. Order of blocks = page order. pillar references are filled with document ids at seed time. Hashes: see component-hashes.txt.",
+  "documents": {
+    "pillar_item": [
+      {
+        "title": "Living Self",
+        "content": {
+          "name": "Living Self",
+          "kicker": "THE FOUNDATION",
+          "icon": "user",
+          "description": "Personalized one-on-one coaching for those ready to meet themselves more honestly. Together we explore identity, sovereignty, and the quiet power of simply being. Sessions blend deep listening, somatic inquiry, and gentle guidance tailored to your unique rhythm.",
+          "session_note": "60 or 90 minutes • In-person or virtual",
+          "cta_label": "BOOK A SESSION",
+          "image_url": "https://picsum.photos/id/1005/800/600",
+          "image_alt": "Serene minimalist interior with soft natural light and wooden elements"
+        }
+      },
+      {
+        "title": "Living Fire",
+        "content": {
+          "name": "Living Fire",
+          "kicker": "THE SPARK",
+          "icon": "fire",
+          "description": "Ignite vitality and transform stagnant energy through elemental fire practices. We work with breath of fire, dynamic movement, ritual, and the sacred art of release. Perfect for those seeking courage, clarity, and a renewed sense of aliveness.",
+          "session_note": "Group or private • 75 minutes",
+          "cta_label": "BOOK A SESSION",
+          "image_url": "https://picsum.photos/id/201/800/600",
+          "image_alt": "Warm natural textures with firelight and wooden elements evoking transformation"
+        }
+      },
+      {
+        "title": "Living Water",
+        "content": {
+          "name": "Living Water",
+          "kicker": "THE FLOW",
+          "icon": "water",
+          "description": "Surrender into fluidity and emotional intelligence. Through gentle breathwork, sound healing, and water-inspired rituals, we soften the nervous system and invite deep restoration. Ideal for processing, grieving, or simply returning to your natural state of flow.",
+          "session_note": "Private or small group • 60–90 minutes",
+          "cta_label": "BOOK A SESSION",
+          "image_url": "https://picsum.photos/id/251/800/600",
+          "image_alt": "Calm water and natural light creating a serene, flowing atmosphere"
+        }
+      },
+      {
+        "title": "Living Body",
+        "content": {
+          "name": "Living Body",
+          "kicker": "THE TEMPLE",
+          "icon": "hands",
+          "description": "Reclaim your body as sacred ground. Sessions integrate therapeutic massage, conscious breathwork, somatic coaching, and gentle movement. We listen to what the body holds and guide it toward release, resilience, and profound presence.",
+          "session_note": "60, 90 or 120 minutes • In-person only",
+          "cta_label": "BOOK A SESSION",
+          "image_url": "https://picsum.photos/id/29/800/600",
+          "image_alt": "Minimalist space with natural textures, soft light and sense of grounded presence"
+        }
+      }
+    ]
+  },
+  "blocks": [
+    {
+      "schema_name": "living_navbar",
+      "block_name": "Navbar",
+      "content": {
+        "brand": "the living method",
+        "nav_links": ["Living Self", "Living Fire", "Living Water", "Living Body"],
+        "nav_href": "#pillars",
+        "cta_label": "BOOK NOW",
+        "cta_href": "#book"
+      }
+    },
+    {
+      "schema_name": "living_hero",
+      "block_name": "Hero",
+      "content": {
+        "badge": "NEW YORK CITY • EST. 2026",
+        "heading": "The beauty of\ncoming home to yourself.",
+        "subheading": "Rooted in Wabi-Sabi. Guided by the elements.\nA sanctuary for those ready to live more fully.",
+        "primary_cta_label": "BOOK YOUR SESSION TODAY",
+        "primary_cta_href": "#book",
+        "secondary_cta_label": "EXPLORE THE PILLARS",
+        "secondary_cta_href": "#pillars",
+        "image_url": "https://picsum.photos/id/160/2000/1400",
+        "scroll_hint": "SCROLL TO BEGIN"
+      }
+    },
+    {
+      "schema_name": "living_philosophy",
+      "block_name": "Philosophy",
+      "content": {
+        "kicker": "WABI-SABI • THE LIVING METHOD",
+        "heading": "Nothing is perfect.\nEverything is complete.",
+        "body": "We honor the cracked bowl, the weathered wood, the quiet spaces between breaths. In this spirit, we offer practices that celebrate your inherent wholeness while gently guiding you toward deeper balance, vitality, and self-knowing."
+      }
+    },
+    {
+      "schema_name": "living_pillars",
+      "block_name": "The Living Pillars",
+      "content": {
+        "kicker": "FOUR PATHWAYS HOME",
+        "heading": "The Living Pillars",
+        "subheading": "Each pillar invites you into a different dimension of presence and embodied wisdom.",
+        "pillars": "__PILLAR_REFS__"
+      }
+    },
+    {
+      "schema_name": "living_sanctuary",
+      "block_name": "The Sanctuary",
+      "content": {
+        "kicker": "THE SANCTUARY",
+        "heading": "A space that\nholds you gently.",
+        "body": "Exposed wood. Polished concrete. Light pouring through generous windows. Every detail designed to help you arrive more fully into the present moment.",
+        "gallery": [
+          "https://picsum.photos/id/160/600/400",
+          "https://picsum.photos/id/201/600/400",
+          "https://picsum.photos/id/251/600/400"
+        ]
+      }
+    },
+    {
+      "schema_name": "living_booking",
+      "block_name": "Booking",
+      "content": {
+        "kicker": "RESERVE YOUR TIME",
+        "heading": "Book Your Session Today",
+        "subheading": "Choose a date and time that feels right. We'll meet you exactly where you are.",
+        "time_slots": ["09:00", "10:30", "14:00", "15:30", "17:00"],
+        "pillar_options": [
+          "Living Self — Personal Coaching",
+          "Living Fire — Elemental Activation",
+          "Living Water — Flow & Restoration",
+          "Living Body — Massage & Breathwork"
+        ],
+        "confirm_label": "CONFIRM MY SESSION",
+        "disclaimer": "You'll receive a confirmation email within minutes."
+      }
+    },
+    {
+      "schema_name": "living_testimonial",
+      "block_name": "Testimonial",
+      "content": {
+        "quote": "“These sessions didn't add anything to me.\nThey helped me remember what was already whole.”",
+        "attribution": "— Maya K., Brooklyn"
+      }
+    },
+    {
+      "schema_name": "living_footer",
+      "block_name": "Footer",
+      "content": {
+        "brand": "the living method",
+        "tagline": "A Wabi-Sabi sanctuary for inner growth & elemental balance.",
+        "address": "1086 Myrtle Avenue, Brooklyn, NY",
+        "email": "hello@thelivingmethod.nyc",
+        "copyright": "© 2026"
+      }
+    }
+  ],
+  "page": {
+    "path": "/",
+    "label": "Home",
+    "state": "Live",
+    "tags": ["homepage"]
+  }
+}

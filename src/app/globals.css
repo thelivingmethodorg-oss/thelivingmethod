@@ -1,1 +1,136 @@
 @import "tailwindcss";
+
+@theme {
+  /* Wabi-sabi palette */
+  --color-beige: #f5f0e6;
+  --color-sand: #ede4d7;
+  --color-stone: #d1c9be;
+  --color-warmgray: #9a9085;
+  --color-charcoal: #3c3632;
+  --color-sage: #9caf88;
+  --color-deepsage: #7a8f6d;
+  --color-wood: #c4a77d;
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+}
+
+.heading-serif {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d1c9be, transparent);
+}
+
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #9caf88;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover:after {
+  width: 100%;
+}
+
+.pillar-tab {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 3px solid transparent;
+}
+
+.pillar-tab.active {
+  color: #3c3632;
+  border-bottom-color: #9caf88;
+  font-weight: 500;
+}
+
+.pillar-content {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.serene-shadow {
+  box-shadow:
+    0 10px 30px -15px rgb(60 54 50 / 0.1),
+    0 4px 6px -1px rgb(60 54 50 / 0.05);
+}
+
+.wabi-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.wabi-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 20px 25px -5px rgb(60 54 50 / 0.08),
+    0 8px 10px -6px rgb(60 54 50 / 0.08);
+}
+
+.minimal-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.minimal-button:hover {
+  background-color: #7a8f6d;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.calendar-day {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.calendar-day.available:hover {
+  background-color: #ede4d7;
+  color: #3c3632;
+}
+
+.calendar-day.selected {
+  background-color: #9caf88;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 0 0 3px rgba(156, 175, 136, 0.3);
+}
+
+.calendar-day.unavailable {
+  color: #d1c9be;
+  cursor: not-allowed;
+}
+
+.time-slot {
+  transition: all 0.2s ease;
+}
+
+.time-slot.selected {
+  background-color: #9caf88;
+  color: white;
+  border-color: #9caf88;
+}

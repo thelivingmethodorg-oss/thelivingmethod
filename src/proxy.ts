@@ -8,7 +8,11 @@ const upstream = process.env.ADMIN_UPSTREAM_ORIGIN ?? cmsConfig.cmsUrl;
 // (its STATIC_FILE_REGEX has no `wasm`), so the admin panel's .wasm assets never
 // reach upstream. Route `/wasm` through additionalPaths, which is forwarded
 // unconditionally before the regex/Referer gate.
-const cmsProxy = createCmsProxy({ upstream, additionalPaths: ["/wasm"] });
+// cms-renderer bundles its own `next`, whose NextRequest/NextResponse types are
+// not identical to this project's; the runtime objects are compatible.
+const cmsProxy = createCmsProxy({ upstream, additionalPaths: ["/wasm"] }) as unknown as (
+  request: NextRequest
+) => Promise<NextResponse>;
 
 export const proxy = async (request: NextRequest): Promise<NextResponse> => {
   const { pathname, searchParams } = request.nextUrl;

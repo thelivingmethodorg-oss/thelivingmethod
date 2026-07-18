@@ -1,0 +1,67 @@
+{
+  "pillar_item": [
+    { "name": "name", "type": "string", "displayName": "Name", "required": true },
+    { "name": "kicker", "type": "string", "displayName": "Kicker", "description": "Small label above the name, e.g. THE FOUNDATION", "required": true },
+    { "name": "icon", "type": "string", "displayName": "Icon", "description": "Icon key: user, fire, water or hands", "required": true, "constraints": { "maxLength": 50 } },
+    { "name": "description", "type": "string", "displayName": "Description", "required": true },
+    { "name": "session_note", "type": "string", "displayName": "Session note", "description": "e.g. 60 or 90 minutes • In-person or virtual", "required": true },
+    { "name": "cta_label", "type": "string", "displayName": "CTA label", "required": true },
+    { "name": "image_url", "type": "url", "displayName": "Image URL", "required": true },
+    { "name": "image_alt", "type": "string", "displayName": "Image alt text", "required": true }
+  ],
+  "living_navbar": [
+    { "name": "brand", "type": "string", "displayName": "Brand name", "required": true },
+    { "name": "nav_links", "type": "array", "displayName": "Nav links", "description": "Labels of the navigation links", "required": true, "constraints": { "arrayItemType": "string" } },
+    { "name": "nav_href", "type": "string", "displayName": "Nav link target", "description": "Anchor or path the nav links point to", "required": true },
+    { "name": "cta_label", "type": "string", "displayName": "CTA label", "required": true },
+    { "name": "cta_href", "type": "string", "displayName": "CTA target", "required": true }
+  ],
+  "living_hero": [
+    { "name": "badge", "type": "string", "displayName": "Badge", "required": true },
+    { "name": "heading", "type": "string", "displayName": "Heading", "description": "Use a line break for the two-line title", "required": true },
+    { "name": "subheading", "type": "string", "displayName": "Subheading", "required": true },
+    { "name": "primary_cta_label", "type": "string", "displayName": "Primary CTA label", "required": true },
+    { "name": "primary_cta_href", "type": "string", "displayName": "Primary CTA target", "required": true },
+    { "name": "secondary_cta_label", "type": "string", "displayName": "Secondary CTA label", "required": true },
+    { "name": "secondary_cta_href", "type": "string", "displayName": "Secondary CTA target", "required": true },
+    { "name": "image_url", "type": "url", "displayName": "Background image URL", "required": true },
+    { "name": "scroll_hint", "type": "string", "displayName": "Scroll hint", "required": true }
+  ],
+  "living_philosophy": [
+    { "name": "kicker", "type": "string", "displayName": "Kicker", "required": true },
+    { "name": "heading", "type": "string", "displayName": "Heading", "required": true },
+    { "name": "body", "type": "string", "displayName": "Body", "required": true }
+  ],
+  "living_pillars": [
+    { "name": "kicker", "type": "string", "displayName": "Kicker", "required": true },
+    { "name": "heading", "type": "string", "displayName": "Heading", "required": true },
+    { "name": "subheading", "type": "string", "displayName": "Subheading", "required": true },
+    { "name": "pillars", "type": "array", "displayName": "Pillars", "description": "The pillar items shown as tabs", "required": true, "constraints": { "arrayItemType": "reference", "refSchema": "pillar_item" } }
+  ],
+  "living_sanctuary": [
+    { "name": "kicker", "type": "string", "displayName": "Kicker", "required": true },
+    { "name": "heading", "type": "string", "displayName": "Heading", "required": true },
+    { "name": "body", "type": "string", "displayName": "Body", "required": true },
+    { "name": "gallery", "type": "array", "displayName": "Gallery image URLs", "required": true, "constraints": { "arrayItemType": "string" } }
+  ],
+  "living_booking": [
+    { "name": "kicker", "type": "string", "displayName": "Kicker", "required": true },
+    { "name": "heading", "type": "string", "displayName": "Heading", "required": true },
+    { "name": "subheading", "type": "string", "displayName": "Subheading", "required": true },
+    { "name": "time_slots", "type": "array", "displayName": "Time slots", "required": true, "constraints": { "arrayItemType": "string" } },
+    { "name": "pillar_options", "type": "array", "displayName": "Pillar options", "description": "Choices for the pillar select in the form", "required": true, "constraints": { "arrayItemType": "string" } },
+    { "name": "confirm_label", "type": "string", "displayName": "Confirm button label", "required": true },
+    { "name": "disclaimer", "type": "string", "displayName": "Disclaimer", "required": true }
+  ],
+  "living_testimonial": [
+    { "name": "quote", "type": "string", "displayName": "Quote", "required": true },
+    { "name": "attribution", "type": "string", "displayName": "Attribution", "required": true }
+  ],
+  "living_footer": [
+    { "name": "brand", "type": "string", "displayName": "Brand name", "required": true },
+    { "name": "tagline", "type": "string", "displayName": "Tagline", "required": true },
+    { "name": "address", "type": "string", "displayName": "Address", "required": true },
+    { "name": "email", "type": "email", "displayName": "Email", "required": true },
+    { "name": "copyright", "type": "string", "displayName": "Copyright", "required": true }
+  ]
+}

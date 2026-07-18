@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Living Method • Wabi-Sabi Wellness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&amp;family=Inter:wght@300;400;500&amp;display=swap');
+        
+        :root {
+            --beige: #F5F0E6;
+            --warm-gray: #9A9085;
+            --charcoal: #3C3632;
+            --sage: #9CAF88;
+            --deep-sage: #7A8F6D;
+            --wood: #C4A77D;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .wabi-bg {
+            background-color: #F5F0E6;
+            background-image: 
+                linear-gradient(#EDE4D7 0.8px, transparent 0.8px),
+                linear-gradient(90deg, #EDE4D7 0.8px, transparent 0.8px);
+            background-size: 28px 28px;
+            opacity: 0.6;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #D1C9BE, transparent);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: #3C3632;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #9CAF88;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .pillar-tab {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 3px solid transparent;
+        }
+        
+        .pillar-tab.active {
+            color: #3C3632;
+            border-bottom-color: #9CAF88;
+            font-weight: 500;
+        }
+
+        .pillar-content {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .serene-shadow {
+            box-shadow: 0 10px 30px -15px rgb(60 54 50 / 0.1),
+                        0 4px 6px -1px rgb(60 54 50 / 0.05);
+        }
+
+        .wabi-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .wabi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgb(60 54 50 / 0.08), 0 8px 10px -6px rgb(60 54 50 / 0.08);
+        }
+
+        .minimal-button {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .minimal-button:hover {
+            background-color: #7A8F6D;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .calendar-day {
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .calendar-day:hover {
+            background-color: #EDE4D7;
+            color: #3C3632;
+        }
+        
+        .calendar-day.selected {
+            background-color: #9CAF88;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 0 0 3px rgba(156, 175, 136, 0.3);
+        }
+        
+        .calendar-day.unavailable {
+            color: #D1C9BE;
+            cursor: not-allowed;
+        }
+
+        .time-slot {
+            transition: all 0.2s ease;
+        }
+        
+        .time-slot.selected {
+            background-color: #9CAF88;
+            color: white;
+            border-color: #9CAF88;
+        }
+
+        .nav-active {
+            color: #3C3632;
+            font-weight: 500;
+        }
+
+        .subtle-texture {
+            background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2290%22 height=%2290%22 fill=%22none%22%3E%3Cpath fill-rule=%22evenodd%22 clip-rule=%22evenodd%22 d=%22M90 0H0v90h90V0zM89 1H1v88h88V1z%22 fill=%22%23EDE4D7%22 fill-opacity=%220.15%22/%3E%3C/svg%27');
+            background-size: 90px 90px;
+        }
+    </style>
+</head>
+<body class="bg-[#F5F0E6] text-[#3C3632] antialiased">
+    <!-- Navbar -->
+    <nav class="bg-[#F5F0E6]/95 backdrop-blur-lg border-b border-[#D1C9BE]/60 sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 md:px-12 py-5 flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-8 h-8 rounded-full bg-[#9CAF88] flex items-center justify-center">
+                        <i class="fa-solid fa-leaf text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="heading-serif text-2xl tracking-tight text-[#3C3632]">the living method</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-x-9 text-sm tracking-[1.25px] font-medium">
+                    <a href="#pillars" class="nav-link text-[#9A9085] hover:text-[#3C3632]">Living Self</a>
+                    <a href="#pillars" class="nav-link text-[#9A9085] hover:text-[#3C3632]">Living Fire</a>
+                    <a href="#pillars" class="nav-link text-[#9A9085] hover:text-[#3C3632]">Living Water</a>
+                    <a href="#pillars" class="nav-link text-[#9A9085] hover:text-[#3C3632]">Living Body</a>
+                    <a href="#book" 
+                       class="px-6 py-2.5 rounded-full border border-[#9CAF88] text-[#9CAF88] hover:bg-[#9CAF88] hover:text-white text-xs tracking-[1.5px] font-medium transition-all">
+                        BOOK NOW
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn"
+                            class="w-10 h-10 flex items-center justify-center text-[#9A9085] hover:text-[#3C3632]">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-[92vh] min-h-[680px] flex items-center justify-center overflow-hidden">
+        <!-- Hero Background Image -->
+        <div class="absolute inset-0 bg-cover bg-center" 
+             style="background-image: url('https://picsum.photos/id/160/2000/1400')">
+            <!-- Subtle overlay for Wabi-Sabi softness -->
+            <div class="absolute inset-0 bg-[#F5F0E6]/30"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#F5F0E6]/10 via-transparent to-[#F5F0E6]/40"></div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-4xl px-6 text-center">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1 rounded-full bg-white/70 backdrop-blur-sm mb-6 border border-[#D1C9BE]/50">
+                <div class="w-1.5 h-1.5 bg-[#9CAF88] rounded-full animate-pulse"></div>
+                <span class="text-xs tracking-[2px] font-medium text-[#9A9085]">NEW YORK CITY • EST. 2026</span>
+            </div>
+            
+            <h1 class="heading-serif text-6xl md:text-7xl leading-[1.05] tracking-tighter text-[#3C3632] mb-6">
+                The beauty of<br>coming home to yourself.
+            </h1>
+            
+            <p class="max-w-md mx-auto text-lg text-[#9A9085] mb-10 tracking-wide">
+                Rooted in Wabi-Sabi. Guided by the elements.<br>
+                A sanctuary for those ready to live more fully.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#book" 
+                   class="minimal-button group inline-flex items-center justify-center gap-x-3 px-10 py-4 bg-[#3C3632] text-white rounded-full text-sm tracking-[1.75px] font-medium hover:bg-[#9CAF88]">
+                    <span>BOOK YOUR SESSION TODAY</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition"></i>
+                </a>
+                
+                <a href="#pillars" 
+                   class="inline-flex items-center justify-center gap-x-2 px-8 py-4 text-sm tracking-[1.5px] font-medium text-[#9A9085] hover:text-[#3C3632] transition-colors">
+                    <span>EXPLORE THE PILLARS</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <span class="text-[10px] tracking-[2px] text-[#9A9085] mb-1.5">SCROLL TO BEGIN</span>
+            <i class="fa-solid fa-chevron-down text-[#D1C9BE] text-sm animate-bounce"></i>
+        </div>
+    </header>
+
+    <!-- Philosophy Intro -->
+    <section class="max-w-screen-2xl mx-auto px-8 md:px-12 pt-16 pb-12">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="flex justify-center mb-4">
+                <div class="px-5 py-1 rounded-full border border-[#D1C9BE] text-xs tracking-[2.5px] text-[#9A9085]">WABI-SABI • THE LIVING METHOD</div>
+            </div>
+            <h2 class="heading-serif text-5xl tracking-tighter leading-none mb-6">Nothing is perfect.<br>Everything is complete.</h2>
+            <p class="text-[#9A9085] text-[15px] leading-relaxed max-w-lg mx-auto">
+                We honor the cracked bowl, the weathered wood, the quiet spaces between breaths. 
+                In this spirit, we offer practices that celebrate your inherent wholeness while gently guiding you toward deeper balance, vitality, and self-knowing.
+            </p>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-screen-2xl mx-auto px-8 md:px-12"></div>
+
+    <!-- The Living Pillars - Tabbed Section -->
+    <section id="pillars" class="max-w-screen-2xl mx-auto px-8 md:px-12 pt-14 pb-20">
+        <div class="max-w-5xl mx-auto">
+            <!-- Section Header -->
+            <div class="flex flex-col items-center text-center mb-10">
+                <span class="uppercase tracking-[3px] text-xs text-[#9CAF88] font-medium">FOUR PATHWAYS HOME</span>
+                <h3 class="heading-serif text-5xl tracking-tighter mt-3 mb-3">The Living Pillars</h3>
+                <p class="max-w-md text-[#9A9085]">Each pillar invites you into a different dimension of presence and embodied wisdom.</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex flex-wrap justify-center gap-x-1 gap-y-1 mb-8 border-b border-[#D1C9BE]/60 pb-1">
+                <button onclick="switchPillar(0)" id="tab-0"
+                        class="pillar-tab active px-7 py-3 text-sm tracking-wider font-medium text-[#3C3632]">Living Self</button>
+                <button onclick="switchPillar(1)" id="tab-1"
+                        class="pillar-tab px-7 py-3 text-sm tracking-wider font-medium text-[#9A9085] hover:text-[#3C3632]">Living Fire</button>
+                <button onclick="switchPillar(2)" id="tab-2"
+                        class="pillar-tab px-7 py-3 text-sm tracking-wider font-medium text-[#9A9085] hover:text-[#3C3632]">Living Water</button>
+                <button onclick="switchPillar(3)" id="tab-3"
+                        class="pillar-tab px-7 py-3 text-sm tracking-wider font-medium text-[#9A9085] hover:text-[#3C3632]">Living Body</button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="max-w-4xl mx-auto">
+                <!-- Living Self -->
+                <div id="content-0" class="pillar-content">
+                    <div class="grid md:grid-cols-5 gap-8 items-center">
+                        <div class="md:col-span-3">
+                            <div class="flex items-center gap-x-3 mb-4">
+                                <div class="w-9 h-9 flex-shrink-0 rounded-2xl bg-[#EDE4D7] flex items-center justify-center">
+                                    <i class="fa-solid fa-user text-[#9CAF88] text-xl"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs tracking-[2px] text-[#9CAF88]">THE FOUNDATION</span>
+                                    <h4 class="heading-serif text-3xl tracking-tight">Living Self</h4>
+                                </div>
+                            </div>
+                            <p class="text-[#9A9085] leading-relaxed mb-6">
+                                Personalized one-on-one coaching for those ready to meet themselves more honestly. 
+                                Together we explore identity, sovereignty, and the quiet power of simply being. 
+                                Sessions blend deep listening, somatic inquiry, and gentle guidance tailored to your unique rhythm.
+                            </p>
+                            <div class="flex items-center gap-x-4">
+                                <a href="#book" class="minimal-button text-xs tracking-[1.5px] px-6 py-3 border border-[#9CAF88] text-[#9CAF88] hover:bg-[#9CAF88] hover:text-white rounded-full">BOOK A SESSION</a>
+                                <span class="text-xs text-[#D1C9BE]">60 or 90 minutes • In-person or virtual</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <div class="aspect-[4/3] rounded-3xl overflow-hidden border border-[#D1C9BE]/40 serene-shadow">
+                                <img src="https://picsum.photos/id/1005/800/600" alt="Serene minimalist interior with soft natural light and wooden elements" 
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Living Fire -->
+                <div id="content-1" class="pillar-content hidden">
+                    <div class="grid md:grid-cols-5 gap-8 items-center">
+                        <div class="md:col-span-3">
+                            <div class="flex items-center gap-x-3 mb-4">
+                                <div class="w-9 h-9 flex-shrink-0 rounded-2xl bg-[#EDE4D7] flex items-center justify-center">
+                                    <i class="fa-solid fa-fire-flame-curved text-[#9CAF88] text-xl"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs tracking-[2px] text-[#9CAF88]">THE SPARK</span>
+                                    <h4 class="heading-serif text-3xl tracking-tight">Living Fire</h4>
+                                </div>
+                            </div>
+                            <p class="text-[#9A9085] leading-relaxed mb-6">
+                                Ignite vitality and transform stagnant energy through elemental fire practices. 
+                                We work with breath of fire, dynamic movement, ritual, and the sacred art of release. 
+                                Perfect for those seeking courage, clarity, and a renewed sense of aliveness.
+                            </p>
+                            <div class="flex items-center gap-x-4">
+                                <a href="#book" class="minimal-button text-xs tracking-[1.5px] px-6 py-3 border border-[#9CAF88] text-[#9CAF88] hover:bg-[#9CAF88] hover:text-white rounded-full">BOOK A SESSION</a>
+                                <span class="text-xs text-[#D1C9BE]">Group or private • 75 minutes</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <div class="aspect-[4/3] rounded-3xl overflow-hidden border border-[#D1C9BE]/40 serene-shadow">
+                                <img src="https://picsum.photos/id/201/800/600" alt="Warm natural textures with firelight and wooden elements evoking transformation" 
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Living Water -->
+                <div id="content-2" class="pillar-content hidden">
+                    <div class="grid md:grid-cols-5 gap-8 items-center">
+                        <div class="md:col-span-3">
+                            <div class="flex items-center gap-x-3 mb-4">
+                                <div class="w-9 h-9 flex-shrink-0 rounded-2xl bg-[#EDE4D7] flex items-center justify-center">
+                                    <i class="fa-solid fa-water text-[#9CAF88] text-xl"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs tracking-[2px] text-[#9CAF88]">THE FLOW</span>
+                                    <h4 class="heading-serif text-3xl tracking-tight">Living Water</h4>
+                                </div>
+                            </div>
+                            <p class="text-[#9A9085] leading-relaxed mb-6">
+                                Surrender into fluidity and emotional intelligence. Through gentle breathwork, 
+                                sound healing, and water-inspired rituals, we soften the nervous system and invite deep restoration. 
+                                Ideal for processing, grieving, or simply returning to your natural state of flow.
+                            </p>
+                            <div class="flex items-center gap-x-4">
+                                <a href="#book" class="minimal-button text-xs tracking-[1.5px] px-6 py-3 border border-[#9CAF88] text-[#9CAF88] hover:bg-[#9CAF88] hover:text-white rounded-full">BOOK A SESSION</a>
+                                <span class="text-xs text-[#D1C9BE]">Private or small group • 60–90 minutes</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <div class="aspect-[4/3] rounded-3xl overflow-hidden border border-[#D1C9BE]/40 serene-shadow">
+                                <img src="https://picsum.photos/id/251/800/600" alt="Calm water and natural light creating a serene, flowing atmosphere" 
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Living Body -->
+                <div id="content-3" class="pillar-content hidden">
+                    <div class="grid md:grid-cols-5 gap-8 items-center">
+                        <div class="md:col-span-3">
+                            <div class="flex items-center gap-x-3 mb-4">
+                                <div class="w-9 h-9 flex-shrink-0 rounded-2xl bg-[#EDE4D7] flex items-center justify-center">
+                                    <i class="fa-solid fa-hands text-[#9CAF88] text-xl"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs tracking-[2px] text-[#9CAF88]">THE TEMPLE</span>
+                                    <h4 class="heading-serif text-3xl tracking-tight">Living Body</h4>
+                                </div>
+                            </div>
+                            <p class="text-[#9A9085] leading-relaxed mb-6">
+                                Reclaim your body as sacred ground. Sessions integrate therapeutic massage, 
+                                conscious breathwork, somatic coaching, and gentle movement. We listen to what the body holds 
+                                and guide it toward release, resilience, and profound presence.
+                            </p>
+                            <div class="flex items-center gap-x-4">
+                                <a href="#book" class="minimal-button text-xs tracking-[1.5px] px-6 py-3 border border-[#9CAF88] text-[#9CAF88] hover:bg-[#9CAF88] hover:text-white rounded-full">BOOK A SESSION</a>
+                                <span class="text-xs text-[#D1C9BE]">60, 90 or 120 minutes • In-person only</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <div class="aspect-[4/3] rounded-3xl overflow-hidden border border-[#D1C9BE]/40 serene-shadow">
+                                <img src="https://picsum.photos/id/29/800/600" alt="Minimalist space with natural textures, soft light and sense of grounded presence" 
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Space / Atmosphere -->
+    <section class="bg-white border-y border-[#D1C9BE]/40 py-14">
+        <div class="max-w-screen-2xl mx-auto px-8 md:px-12">
+            <div class="grid md:grid-cols-12 gap-x-8 items-end">
+                <div class="md:col-span-5 mb-8 md:mb-0">
+                    <span class="text-xs tracking-[2.5px] text-[#9CAF88]">THE SANCTUARY</span>
+                    <h3 class="heading-serif text-4xl tracking-tighter mt-2 leading-none">A space that<br>holds you gently.</h3>
+                    <p class="mt-4 text-[#9A9085] max-w-sm">Exposed wood. Polished concrete. Light pouring through generous windows. 
+                    Every detail designed to help you arrive more fully into the present moment.</p>
+                </div>
+                
+                <div class="md:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="aspect-video rounded-2xl overflow-hidden border border-[#D1C9BE]/30">
+                        <img src="https://picsum.photos/id/160/600/400" class="w-full h-full object-cover" alt="Exposed wood beams and warm natural textures in minimalist wellness space">
+                    </div>
+                    <div class="aspect-video rounded-2xl overflow-hidden border border-[#D1C9BE]/30">
+                        <img src="https://picsum.photos/id/201/600/400" class="w-full h-full object-cover" alt="Polished concrete floor meeting natural wood in serene interior">
+                    </div>
+                    <div class="aspect-video rounded-2xl overflow-hidden border border-[#D1C9BE]/30">
+                        <img src="https://picsum.photos/id/251/600/400" class="w-full h-full object-cover" alt="Large windows bringing soft natural light into calm wellness studio">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="book" class="max-w-screen-2xl mx-auto px-8 md:px-12 pt-16 pb-20">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="uppercase tracking-[3px] text-xs text-[#9CAF88]">RESERVE YOUR TIME</span>
+                <h3 class="heading-serif text-5xl tracking-tighter mt-2">Book Your Session Today</h3>
+                <p class="text-[#9A9085] mt-3 max-w-sm mx-auto">Choose a date and time that feels right. We’ll meet you exactly where you are.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-8">
+                <!-- Calendar -->
+                <div class="lg:col-span-3 bg-white rounded-3xl p-8 border border-[#D1C9BE]/40 serene-shadow">
+                    <div class="flex items-center justify-between mb-6 px-1">
+                        <div>
+                            <span id="calendar-month" class="heading-serif text-3xl tracking-tight">July 2026</span>
+                        </div>
+                        <div class="flex gap-x-2">
+                            <button onclick="prevMonth()" 
+                                    class="w-9 h-9 flex items-center justify-center rounded-full border border-[#D1C9BE] text-[#9A9085] hover:bg-[#F5F0E6] hover:text-[#3C3632]">
+                                <i class="fa-solid fa-chevron-left text-sm"></i>
+                            </button>
+                            <button onclick="nextMonth()" 
+                                    class="w-9 h-9 flex items-center justify-center rounded-full border border-[#D1C9BE] text-[#9A9085] hover:bg-[#F5F0E6] hover:text-[#3C3632]">
+                                <i class="fa-solid fa-chevron-right text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Grid -->
+                    <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 px-1">
+                        <div class="text-[#D1C9BE] py-1">SUN</div>
+                        <div class="text-[#D1C9BE] py-1">MON</div>
+                        <div class="text-[#D1C9BE] py-1">TUE</div>
+                        <div class="text-[#D1C9BE] py-1">WED</div>
+                        <div class="text-[#D1C9BE] py-1">THU</div>
+                        <div class="text-[#D1C9BE] py-1">FRI</div>
+                        <div class="text-[#D1C9BE] py-1">SAT</div>
+                    </div>
+                    <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-sm">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    
+                    <div class="mt-4 px-1 flex items-center gap-x-4 text-xs">
+                        <div class="flex items-center gap-x-2">
+                            <div class="w-3 h-3 rounded-full bg-[#9CAF88]"></div>
+                            <span class="text-[#9A9085]">Available</span>
+                        </div>
+                        <div class="flex items-center gap-x-2">
+                            <div class="w-3 h-3 rounded-full bg-[#EDE4D7]"></div>
+                            <span class="text-[#9A9085]">Limited</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="lg:col-span-2 bg-white rounded-3xl p-8 border border-[#D1C9BE]/40 serene-shadow flex flex-col">
+                    <div class="mb-6">
+                        <div class="text-xs tracking-widest text-[#9CAF88] mb-1">YOUR APPOINTMENT</div>
+                        <div id="selected-datetime" class="text-xl font-medium text-[#3C3632] min-h-[28px]">
+                            Select a date above
+                        </div>
+                    </div>
+
+                    <!-- Time Slots -->
+                    <div class="mb-6">
+                        <div class="text-xs tracking-widest text-[#9A9085] mb-3 px-1">AVAILABLE TIMES</div>
+                        <div id="time-slots" class="grid grid-cols-2 gap-2">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+                    </div>
+
+                    <form id="booking-form" onsubmit="submitBooking(event)" class="flex-1 flex flex-col">
+                        <div class="space-y-4 flex-1">
+                            <div>
+                                <label class="text-xs tracking-wider text-[#9A9085] block mb-1.5 px-1">FULL NAME</label>
+                                <input type="text" id="full-name" required
+                                       class="w-full bg-[#F5F0E6] border border-[#D1C9BE]/60 focus:border-[#9CAF88] rounded-2xl px-5 py-3 text-sm placeholder:text-[#D1C9BE] outline-none">
+                            </div>
+                            <div>
+                                <label class="text-xs tracking-wider text-[#9A9085] block mb-1.5 px-1">EMAIL ADDRESS</label>
+                                <input type="email" id="email" required
+                                       class="w-full bg-[#F5F0E6] border border-[#D1C9BE]/60 focus:border-[#9CAF88] rounded-2xl px-5 py-3 text-sm placeholder:text-[#D1C9BE] outline-none">
+                            </div>
+                            <div>
+                                <label class="text-xs tracking-wider text-[#9A9085] block mb-1.5 px-1">WHICH PILLAR CALLS TO YOU?</label>
+                                <select id="pillar-select" class="w-full bg-[#F5F0E6] border border-[#D1C9BE]/60 focus:border-[#9CAF88] rounded-2xl px-5 py-3 text-sm outline-none">
+                                    <option value="Living Self">Living Self — Personal Coaching</option>
+                                    <option value="Living Fire">Living Fire — Elemental Activation</option>
+                                    <option value="Living Water">Living Water — Flow &amp; Restoration</option>
+                                    <option value="Living Body">Living Body — Massage &amp; Breathwork</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs tracking-wider text-[#9A9085] block mb-1.5 px-1">ANYTHING YOU’D LIKE US TO KNOW?</label>
+                                <textarea id="notes" rows="2" placeholder="Optional notes for your guide..."
+                                          class="w-full bg-[#F5F0E6] border border-[#D1C9BE]/60 focus:border-[#9CAF88] rounded-3xl px-5 py-3 text-sm placeholder:text-[#D1C9BE] outline-none resize-y"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                                class="mt-6 w-full minimal-button bg-[#3C3632] hover:bg-[#9CAF88] text-white py-4 rounded-2xl text-sm tracking-[1.75px] font-medium flex items-center justify-center gap-x-2">
+                            <span>CONFIRM MY SESSION</span>
+                        </button>
+                        
+                        <p class="text-center text-[10px] text-[#D1C9BE] mt-3 tracking-wide">You’ll receive a confirmation email within minutes.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gentle Closing / Testimonial -->
+    <section class="border-t border-[#D1C9BE]/40 bg-[#F5F0E6]">
+        <div class="max-w-screen-2xl mx-auto px-8 md:px-12 py-16">
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="flex justify-center mb-6">
+                    <i class="fa-solid fa-quote-left text-[#D1C9BE] text-4xl"></i>
+                </div>
+                <blockquote class="heading-serif text-3xl tracking-tight leading-tight text-[#3C3632]">
+                    “These sessions didn’t add anything to me.<br>They helped me remember what was already whole.”
+                </blockquote>
+                <div class="mt-6 text-sm text-[#9A9085]">— Maya K., Brooklyn</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#3C3632] text-[#D1C9BE]">
+        <div class="max-w-screen-2xl mx-auto px-8 md:px-12 py-12">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-y-8">
+                <div>
+                    <div class="flex items-center gap-x-3 mb-3">
+                        <div class="w-7 h-7 rounded-full bg-[#9CAF88]/80 flex items-center justify-center">
+                            <i class="fa-solid fa-leaf text-[#3C3632] text-sm"></i>
+                        </div>
+                        <span class="heading-serif text-xl tracking-tight text-white">the living method</span>
+                    </div>
+                    <p class="text-xs tracking-wider">A Wabi-Sabi sanctuary for inner growth &amp; elemental balance.</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row md:items-center gap-x-8 gap-y-3 text-xs tracking-widest">
+                    <div>1086 Myrtle Avenue, Brooklyn, NY</div>
+                    <div class="hidden md:block w-px h-3 bg-[#D1C9BE]/30"></div>
+                    <div>hello@thelivingmethod.nyc</div>
+                    <div class="hidden md:block w-px h-3 bg-[#D1C9BE]/30"></div>
+                    <div>© 2026</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Confirmation Modal -->
+    <div id="confirmation-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-md w-full mx-4 p-9 text-center serene-shadow border border-[#D1C9BE]/30">
+            <div class="mx-auto w-16 h-16 rounded-full bg-[#9CAF88]/10 flex items-center justify-center mb-6">
+                <i class="fa-solid fa-check text-[#9CAF88] text-3xl"></i>
+            </div>
+            <h4 class="heading-serif text-3xl tracking-tight mb-3">You’re all set.</h4>
+            <p class="text-[#9A9085] mb-6">Your session has been reserved. We look forward to walking alongside you.</p>
+            
+            <div id="modal-details" class="bg-[#F5F0E6] rounded-2xl p-5 text-left text-sm mb-7">
+                <!-- Populated by JS -->
+            </div>
+            
+            <button onclick="closeModal()" 
+                    class="minimal-button w-full py-3.5 rounded-2xl bg-[#3C3632] text-white text-sm tracking-[1.5px]">
+                RETURN TO HOMEPAGE
+            </button>
+            <button onclick="closeModal()" 
+                    class="mt-3 text-xs tracking-wider text-[#9A9085] hover:text-[#3C3632]">Close window</button>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script configuration
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent-sage', '#9CAF88');
+        }
+        
+        // Pillar Tab System
+        let currentPillar = 0;
+        
+        function switchPillar(index) {
+            // Hide all contents
+            document.querySelectorAll('.pillar-content').forEach(el => el.classList.add('hidden'));
+            
+            // Show selected
+            document.getElementById(`content-${index}`).classList.remove('hidden');
+            
+            // Update tab styles
+            document.querySelectorAll('.pillar-tab').forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active', 'text-[#3C3632]');
+                    tab.classList.remove('text-[#9A9085]');
+                } else {
+                    tab.classList.remove('active', 'text-[#3C3632]');
+                    tab.classList.add('text-[#9A9085]');
+                }
+            });
+            
+            currentPillar = index;
+            
+            // Auto-select pillar in booking form
+            const select = document.getElementById('pillar-select');
+            if (select) {
+                const options = ['Living Self', 'Living Fire', 'Living Water', 'Living Body'];
+                select.value = options[index];
+            }
+        }
+        
+        // Calendar Variables
+        let currentDate = new Date(2026, 6, 1); // July 2026
+        let selectedDate = null;
+        let selectedTime = null;
+        
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+            
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Update month label
+            const monthNames = ["January", "February", "March", "April", "May", "June", 
+                               "July", "August", "September", "October", "November", "December"];
+            document.getElementById('calendar-month').textContent = `${monthNames[month]} ${year}`;
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            // Available dates (demo: most weekdays in July 2026)
+            const availableDates = new Set();
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dayOfWeek = new Date(year, month, d).getDay();
+                if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Not Sunday or Saturday
+                    availableDates.add(d);
+                }
+            }
+            
+            // Empty cells before first day
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'h-9';
+                grid.appendChild(emptyCell);
+            }
+            
+            // Day cells
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = `calendar-day h-9 flex items-center justify-center rounded-xl cursor-pointer text-sm font-medium
+                                    ${availableDates.has(day) ? 'hover:bg-[#EDE4D7] text-[#3C3632]' : 'text-[#D1C9BE] cursor-not-allowed'}`;
+                
+                if (!availableDates.has(day)) {
+                    dayCell.classList.add('unavailable');
+                }
+                
+                dayCell.textContent = day;
+                
+                if (availableDates.has(day)) {
+                    dayCell.onclick = () => selectCalendarDate(day, dayCell);
+                }
+                
+                // Pre-select today if in July 2026
+                const today = new Date();
+                if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
+                    // Only highlight if it's available
+                    if (availableDates.has(day)) {
+                        dayCell.classList.add('selected', 'bg-[#9CAF88]', 'text-white');
+                        selectedDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                        updateSelectedDateTime();
+                    }
+                }
+                
+                grid.appendChild(dayCell);
+            }
+        }
+        
+        function selectCalendarDate(day, element) {
+            // Deselect previous
+            document.querySelectorAll('#calendar-grid .calendar-day').forEach(el => {
+                el.classList.remove('selected', 'bg-[#9CAF88]', 'text-white');
+            });
+            
+            // Select new
+            element.classList.add('selected', 'bg-[#9CAF88]', 'text-white');
+            
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth() + 1;
+            selectedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            
+            updateSelectedDateTime();
+            renderTimeSlots();
+        }
+        
+        function updateSelectedDateTime() {
+            const display = document.getElementById('selected-datetime');
+            if (!selectedDate) {
+                display.innerHTML = 'Select a date above';
+                return;
+            }
+            
+            const dateObj = new Date(selectedDate);
+            const options = { weekday: 'long', month: 'long', day: 'numeric' };
+            const formatted = dateObj.toLocaleDateString('en-US', options);
+            
+            let html = `<span class="font-medium">${formatted}</span>`;
+            if (selectedTime) {
+                html += ` <span class="text-[#9CAF88]">at ${selectedTime}</span>`;
+            }
+            display.innerHTML = html;
+        }
+        
+        function renderTimeSlots() {
+            const container = document.getElementById('time-slots');
+            container.innerHTML = '';
+            
+            if (!selectedDate) {
+                const msg = document.createElement('div');
+                msg.className = 'col-span-2 text-xs text-center py-4 text-[#D1C9BE]';
+                msg.textContent = 'Please select a date first';
+                container.appendChild(msg);
+                return;
+            }
+            
+            const times = ['09:00', '10:30', '14:00', '15:30', '17:00'];
+            
+            times.forEach(time => {
+                const slot = document.createElement('button');
+                slot.type = 'button';
+                slot.className = `time-slot px-4 py-2.5 text-sm border border-[#D1C9BE]/60 rounded-2xl hover:border-[#9CAF88] hover:text-[#9CAF88] text-center`;
+                slot.textContent = time;
+                
+                slot.onclick = () => {
+                    // Deselect others
+                    container.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected', 'bg-[#9CAF88]', 'text-white', 'border-[#9CAF88]'));
+                    
+                    // Select this
+                    slot.classList.add('selected', 'bg-[#9CAF88]', 'text-white', 'border-[#9CAF88]');
+                    selectedTime = time;
+                    updateSelectedDateTime();
+                };
+                
+                container.appendChild(slot);
+            });
+        }
+        
+        function prevMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            selectedDate = null;
+            selectedTime = null;
+            document.getElementById('selected-datetime').innerHTML = 'Select a date above';
+            document.getElementById('time-slots').innerHTML = '';
+            renderCalendar();
+        }
+        
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            selectedDate = null;
+            selectedTime = null;
+            document.getElementById('selected-datetime').innerHTML = 'Select a date above';
+            document.getElementById('time-slots').innerHTML = '';
+            renderCalendar();
+        }
+        
+        // Booking Submission
+        function submitBooking(e) {
+            e.preventDefault();
+            
+            if (!selectedDate || !selectedTime) {
+                alert("Please select both a date and a time slot.");
+                return;
+            }
+            
+            const name = document.getElementById('full-name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const pillar = document.getElementById('pillar-select').value;
+            const notes = document.getElementById('notes').value.trim();
+            
+            if (!name || !email) {
+                alert("Please provide your name and email.");
+                return;
+            }
+            
+            // Show confirmation modal
+            const modal = document.getElementById('confirmation-modal');
+            const detailsContainer = document.getElementById('modal-details');
+            
+            const dateObj = new Date(selectedDate);
+            const formattedDate = dateObj.toLocaleDateString('en-US', { 
+                weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' 
+            });
+            
+            detailsContainer.innerHTML = `
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between"><span class="text-[#9A9085]">Date</span> <span class="font-medium">${formattedDate}</span></div>
+                    <div class="flex justify-between"><span class="text-[#9A9085]">Time</span> <span class="font-medium">${selectedTime}</span></div>
+                    <div class="flex justify-between"><span class="text-[#9A9085]">Practice</span> <span class="font-medium">${pillar}</span></div>
+                    <div class="flex justify-between pt-2 border-t border-[#D1C9BE]/40"><span class="text-[#9A9085]">Guest</span> <span class="font-medium">${name}</span></div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Reset form (optional)
+            // document.getElementById('booking-form').reset();
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('confirmation-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            
+            // Optional: reset selection after booking
+            // window.location.reload(); // or simply clear selections
+        }
+        
+        // Mobile Menu
+        function initMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            if (!btn) return;
+            
+            btn.addEventListener('click', () => {
+                const nav = document.createElement('div');
+                nav.className = `fixed inset-0 z-[200] bg-[#F5F0E6] p-8 flex flex-col`;
+                nav.innerHTML = `
+                    <div class="flex justify-between items-center mb-10">
+                        <div class="flex items-center gap-x-3">
+                            <div class="w-8 h-8 rounded-full bg-[#9CAF88] flex items-center justify-center">
+                                <i class="fa-solid fa-leaf text-white"></i>
+                            </div>
+                            <span class="heading-serif text-2xl tracking-tight">the living method</span>
+                        </div>
+                        <button class="text-3xl text-[#9A9085] hover:text-[#3C3632]">×</button>
+                    </div>
+                    
+                    <div class="flex flex-col text-xl gap-y-6 tracking-wider">
+                        <a href="#pillars" class="py-1 text-[#3C3632]">Living Self</a>
+                        <a href="#pillars" class="py-1 text-[#3C3632]">Living Fire</a>
+                        <a href="#pillars" class="py-1 text-[#3C3632]">Living Water</a>
+                        <a href="#pillars" class="py-1 text-[#3C3632]">Living Body</a>
+                    </div>
+                    
+                    <div class="mt-auto pt-8">
+                        <a href="#book" class="block w-full text-center py-4 rounded-2xl bg-[#3C3632] text-white tracking-[1.75px] text-sm">BOOK YOUR SESSION TODAY</a>
+                    </div>
+                `;
+                
+                document.body.appendChild(nav);
+                
+                // Close on click anywhere or X
+                nav.querySelector('button').onclick = () => nav.remove();
+                nav.querySelectorAll('a').forEach(link => {
+                    link.onclick = () => nav.remove();
+                });
+            });
+        }
+        
+        // Keyboard support for calendar
+        function initKeyboardSupport() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "Escape") {
+                    const modal = document.getElementById('confirmation-modal');
+                    if (!modal.classList.contains('hidden')) {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                    }
+                }
+            });
+        }
+        
+        // Initialize everything
+        function initializeWebsite() {
+            initializeTailwind();
+            
+            // Render initial calendar (July 2026)
+            renderCalendar();
+            
+            // Show first pillar by default
+            document.getElementById('content-0').classList.remove('hidden');
+            document.getElementById('tab-0').classList.add('active', 'text-[#3C3632]');
+            
+            // Initialize mobile menu
+            initMobileMenu();
+            
+            // Keyboard accessibility
+            initKeyboardSupport();
+            
+            // Pre-select a reasonable default time slot hint (optional)
+            // User must click a date first
+            
+            // Subtle welcome animation for hero
+            setTimeout(() => {
+                const hero = document.querySelector('header');
+                if (hero) hero.style.transition = 'opacity 1.2s ease';
+            }, 800);
+            
+            // Make sure booking form is ready
+            console.log('%c[Wabi-Sabi Homepage] Interactive prototype initialized successfully.', 'color:#9A9085');
+        }
+        
+        // Boot the site
+        window.onload = initializeWebsite;
+    </script>
+</body>
+</html>
