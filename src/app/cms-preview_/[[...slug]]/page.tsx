@@ -8,7 +8,7 @@
  * carrying ?edit_mode / ?ai_preview to /cms-preview_/<path>.
  */
 
-import ParametricRoutePage from "cms-renderer/lib/renderer";
+import { ParametricRoutePreviewPage } from "cms-renderer/lib/renderer";
 import { cmsConfig } from "@/lib/cms-config";
 import { registry } from "@/lib/registry";
 
@@ -24,7 +24,7 @@ export default async function PreviewPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
 
   return (
-    <ParametricRoutePage
+    <ParametricRoutePreviewPage
       registry={registry}
       apiKey={cmsConfig.apiKey ?? ""}
       websiteId={cmsConfig.websiteId}
