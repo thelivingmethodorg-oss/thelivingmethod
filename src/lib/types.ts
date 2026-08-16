@@ -68,8 +68,7 @@ export interface LivingBookingContent {
   kicker: string;
   heading: string;
   subheading: string;
-  time_slots: string[];
-  pillar_options: string[];
+  calendly_url?: string;
   confirm_label: string;
   disclaimer: string;
 }

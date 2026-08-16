@@ -48,9 +48,8 @@
     { "name": "kicker", "type": "string", "displayName": "Kicker", "required": true },
     { "name": "heading", "type": "string", "displayName": "Heading", "required": true },
     { "name": "subheading", "type": "string", "displayName": "Subheading", "required": true },
-    { "name": "time_slots", "type": "array", "displayName": "Time slots", "required": true, "constraints": { "arrayItemType": "string" } },
-    { "name": "pillar_options", "type": "array", "displayName": "Pillar options", "description": "Choices for the pillar select in the form", "required": true, "constraints": { "arrayItemType": "string" } },
-    { "name": "confirm_label", "type": "string", "displayName": "Confirm button label", "required": true },
+    { "name": "calendly_url", "type": "url", "displayName": "Calendly booking URL", "required": true },
+    { "name": "confirm_label", "type": "string", "displayName": "Booking button label", "required": true },
     { "name": "disclaimer", "type": "string", "displayName": "Disclaimer", "required": true }
   ],
   "living_testimonial": [

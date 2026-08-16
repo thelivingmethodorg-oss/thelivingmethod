@@ -123,15 +123,9 @@
         "kicker": "RESERVE YOUR TIME",
         "heading": "Book Your Session Today",
         "subheading": "Choose a date and time that feels right. We'll meet you exactly where you are.",
-        "time_slots": ["09:00", "10:30", "14:00", "15:30", "17:00"],
-        "pillar_options": [
-          "Living Self — Personal Coaching",
-          "Living Fire — Elemental Activation",
-          "Living Water — Flow & Restoration",
-          "Living Body — Massage & Breathwork"
-        ],
-        "confirm_label": "CONFIRM MY SESSION",
-        "disclaimer": "You'll receive a confirmation email within minutes."
+        "calendly_url": "https://calendly.com/thelivingmethod-org/30min",
+        "confirm_label": "BOOK A 30-MINUTE SESSION",
+        "disclaimer": "You'll receive a confirmation email from Calendly."
       }
     },
     {
