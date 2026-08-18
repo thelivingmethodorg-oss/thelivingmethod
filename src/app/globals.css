@@ -21,6 +21,37 @@
   letter-spacing: -0.02em;
 }
 
+/* Markdown/rich-text output from CMS fields. Tailwind preflight resets these
+ * elements, so keep the editorial hierarchy explicit without requiring the
+ * Typography plugin. */
+.prose {
+  line-height: 1.7;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+  color: var(--color-charcoal);
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.prose h1 { font-size: 2.25rem; }
+.prose h2 { font-size: 1.875rem; }
+.prose h3 { font-size: 1.5rem; }
+.prose h4 { font-size: 1.25rem; }
+
+.prose p { margin: 0.75em 0; }
+.prose ul,
+.prose ol { margin: 0.75em 0; padding-left: 1.5rem; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose a { color: var(--color-deepsage); text-decoration: underline; }
+
 .section-divider {
   height: 1px;
   background: linear-gradient(to right, transparent, #d1c9be, transparent);
