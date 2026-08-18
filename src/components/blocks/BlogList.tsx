@@ -44,7 +44,11 @@ export default async function BlogList({ content }: BlockComponentProps<BlogList
         <header className="mx-auto mb-12 max-w-2xl text-center">
           <span className="text-xs font-medium tracking-[3px] text-sage uppercase">{content.kicker}</span>
           <h1 className="heading-serif mt-3 text-5xl tracking-tighter">{content.heading}</h1>
-          <p className="mt-4 text-warmgray">{content.subheading}</p>
+          <div className="prose prose-sm mx-auto mt-6 max-w-2xl text-left text-warmgray">
+            <ReactMarkdown remarkPlugins={markdownPlugins} rehypePlugins={richTextPlugins}>
+              {content.subheading}
+            </ReactMarkdown>
+          </div>
         </header>
 
         {posts.length > 0 ? (
