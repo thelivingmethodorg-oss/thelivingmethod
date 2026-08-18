@@ -1,11 +1,18 @@
 import { configureSchema } from "cms-renderer/lib/schema";
 import type { BlockComponentProps } from "cms-renderer/lib/types";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { cmsConfig } from "@/lib/cms-config";
 import type { BlogListContent, BlogPost, DocumentRef } from "@/lib/types";
 
 function isRef(item: DocumentRef | BlogPost): item is DocumentRef {
   return typeof item === "object" && item !== null && "_ref" in item;
 }
+
+const markdownPlugins = [remarkGfm];
+const richTextPlugins = [rehypeRaw, rehypeSanitize];
 
 /** Renders selected headless blog_post records on the blog landing page. */
 export default async function BlogList({ content }: BlockComponentProps<BlogListContent>) {
@@ -54,7 +61,17 @@ export default async function BlogList({ content }: BlockComponentProps<BlogList
                     <span>{post.published_date}</span>
                   </div>
                   <h2 className="heading-serif text-3xl tracking-tight">{post.title}</h2>
-                  <p className="mt-3 leading-relaxed text-warmgray">{post.excerpt}</p>
+                  <div className="prose prose-sm mt-3 max-w-none text-warmgray">
+                    <ReactMarkdown remarkPlugins={markdownPlugins} rehypePlugins={richTextPlugins}>{post.excerpt}</ReactMarkdown>
+                  </div>
+                  <details className="group mt-5 border-t border-stone/40 pt-4">
+                    <summary className="cursor-pointer text-xs font-medium tracking-[1.5px] text-sage uppercase">
+                      Read article
+                    </summary>
+                    <div className="prose prose-sm mt-4 max-w-none text-warmgray">
+                      <ReactMarkdown remarkPlugins={markdownPlugins} rehypePlugins={richTextPlugins}>{post.body}</ReactMarkdown>
+                    </div>
+                  </details>
                   <p className="mt-5 text-xs text-stone">By {post.author}</p>
                 </div>
               </article>
