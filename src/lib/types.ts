@@ -72,6 +72,27 @@ export interface LivingBeingDoc {
   integration_points: string[];
 }
 
+export interface BlogListContent {
+  kicker: string;
+  heading: string;
+  subheading: string;
+  posts: Array<DocumentRef | BlogPost>;
+}
+
+/** A blog_post document fetched from the headless CMS. */
+export interface BlogPost {
+  _id?: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  body: string;
+  author: string;
+  category?: string;
+  published_date: string;
+  cover_image_url?: string;
+  cover_image_alt?: string;
+}
+
 export interface LivingSanctuaryContent {
   kicker: string;
   heading: string;
