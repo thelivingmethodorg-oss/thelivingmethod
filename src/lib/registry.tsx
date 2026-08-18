@@ -6,6 +6,7 @@ import LivingNavbar from "@/components/blocks/LivingNavbar";
 import LivingHero from "@/components/blocks/LivingHero";
 import LivingPhilosophy from "@/components/blocks/LivingPhilosophy";
 import LivingPillars from "@/components/blocks/LivingPillars";
+import LivingBeing from "@/components/blocks/LivingBeing";
 import LivingSanctuary from "@/components/blocks/LivingSanctuary";
 import LivingBooking from "@/components/blocks/LivingBooking";
 import LivingTestimonial from "@/components/blocks/LivingTestimonial";
@@ -16,6 +17,7 @@ export const registry = {
   living_hero: LivingHero,
   living_philosophy: LivingPhilosophy,
   living_pillars: LivingPillars,
+  living_being_section: LivingBeing,
   living_sanctuary: LivingSanctuary,
   living_booking: LivingBooking,
   living_testimonial: LivingTestimonial,

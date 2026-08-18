@@ -51,10 +51,25 @@ export interface PillarDoc {
   kicker: string;
   icon: string;
   description: string;
+  modalities: string[];
   session_note: string;
   cta_label: string;
   image_url: string;
   image_alt: string;
+}
+
+export interface LivingBeingSectionContent {
+  being: DocumentRef | LivingBeingDoc;
+}
+
+/** A living_being document fetched from the headless CMS. */
+export interface LivingBeingDoc {
+  _id?: string;
+  name: string;
+  kicker: string;
+  description: string;
+  questions: string[];
+  integration_points: string[];
 }
 
 export interface LivingSanctuaryContent {

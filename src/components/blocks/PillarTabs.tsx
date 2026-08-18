@@ -39,6 +39,20 @@ export default function PillarTabs({ pillars }: { pillars: PillarDoc[] }) {
                 </div>
               </div>
               <p className="text-warmgray leading-relaxed mb-6">{pillar.description}</p>
+              {pillar.modalities?.length > 0 && (
+                <div className="mb-6">
+                  <p className="mb-2 text-xs font-medium tracking-[1.5px] text-sage uppercase">
+                    Modalities may include
+                  </p>
+                  <ul className="grid gap-x-4 gap-y-1 text-sm leading-relaxed text-warmgray sm:grid-cols-2">
+                    {pillar.modalities.map((modality) => (
+                      <li key={modality} className="before:mr-2 before:text-sage before:content-['•']">
+                        {modality}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div className="flex items-center gap-x-4">
                 <a
                   href="#book"
