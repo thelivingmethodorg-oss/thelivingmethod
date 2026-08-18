@@ -28,7 +28,7 @@ export default async function LocalPreviewPage() {
   const contentFor = (schema: string) =>
     seed.blocks.find((b: { schema_name: string }) => b.schema_name === schema)?.content;
 
-  const pillarDocs: PillarDoc[] = seed.documents.pillar_item.map(
+  const pillarDocs: PillarDoc[] = seed.documents.living_pillar.map(
     (doc: { content: PillarDoc }) => doc.content
   );
 

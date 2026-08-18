@@ -1,7 +1,7 @@
 {
   "$comment": "Seed content for The Living Method website (cb036e0e-b3fe-4d22-b794-8f5225546646). Requires editor/admin role in Dru's Organisation. Order of blocks = page order. pillar references are filled with document ids at seed time. Hashes: see component-hashes.txt.",
   "documents": {
-    "pillar_item": [
+    "living_pillar": [
       {
         "title": "Living Self",
         "content": {

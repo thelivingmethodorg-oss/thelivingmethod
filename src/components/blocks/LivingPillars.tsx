@@ -9,8 +9,10 @@ function isRef(item: DocumentRef | PillarDoc): item is DocumentRef {
 }
 
 /**
- * Server component: resolves the pillars reference array against the
- * pillar_item documents, then hands the resolved list to the client tabs.
+ * Server component: resolves the pillars reference array through the
+ * headless `living_pillar` CMS component, then hands the data to the client
+ * tabs. The UI block stays presentation-only; pillar content lives in CMS
+ * documents.
  */
 export default async function LivingPillars({
   content,
@@ -26,10 +28,10 @@ export default async function LivingPillars({
         websiteId: cmsConfig.websiteId,
         apiKey: cmsConfig.apiKey,
       })
-        .name("pillar_item")
+        .name("living_pillar")
         .fetchByIds<PillarDoc>(refIds);
     } catch (err) {
-      console.error("[LivingPillars] Failed to resolve pillar_item documents:", err);
+      console.error("[LivingPillars] Failed to resolve living_pillar documents:", err);
     }
   }
 

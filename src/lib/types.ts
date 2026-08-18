@@ -44,7 +44,7 @@ export interface LivingPillarsContent {
   pillars: Array<DocumentRef | PillarDoc>;
 }
 
-/** A pillar_item document (resolved). */
+/** A living_pillar document fetched from the headless CMS. */
 export interface PillarDoc {
   _id?: string;
   name: string;

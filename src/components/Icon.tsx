@@ -1,7 +1,7 @@
 /**
  * Inline SVG icon set replacing the prototype's Font Awesome CDN icons,
  * keeping the site self-contained. Icon keys are stored in CMS content
- * (e.g. pillar_item.icon), so keep names stable.
+ * (e.g. living_pillar.icon), so keep names stable.
  */
 import type { SVGProps } from "react";
 

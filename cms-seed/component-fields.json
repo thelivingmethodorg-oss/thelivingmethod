@@ -1,5 +1,5 @@
 {
-  "pillar_item": [
+  "living_pillar": [
     { "name": "name", "type": "string", "displayName": "Name", "required": true },
     { "name": "kicker", "type": "string", "displayName": "Kicker", "description": "Small label above the name, e.g. THE FOUNDATION", "required": true },
     { "name": "icon", "type": "string", "displayName": "Icon", "description": "Icon key: user, fire, water or hands", "required": true, "constraints": { "maxLength": 50 } },
@@ -36,7 +36,7 @@
     { "name": "kicker", "type": "string", "displayName": "Kicker", "required": true },
     { "name": "heading", "type": "string", "displayName": "Heading", "required": true },
     { "name": "subheading", "type": "string", "displayName": "Subheading", "required": true },
-    { "name": "pillars", "type": "array", "displayName": "Pillars", "description": "The pillar items shown as tabs", "required": true, "constraints": { "arrayItemType": "reference", "refSchema": "pillar_item" } }
+    { "name": "pillars", "type": "array", "displayName": "Pillars", "description": "Headless Living Pillar content records shown as tabs", "required": true, "constraints": { "arrayItemType": "reference", "refSchema": "living_pillar" } }
   ],
   "living_sanctuary": [
     { "name": "kicker", "type": "string", "displayName": "Kicker", "required": true },
