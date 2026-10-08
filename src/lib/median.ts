@@ -17,6 +17,20 @@ export const median = new Median({
   datasetEndpoint: DATASET_ENDPOINT,
   websiteId: MEDIAN_WEBSITE_ID,
   registry,
-  // Published pages are prerendered once per build; drafts are never cached.
-  revalidate: false,
+  // Next's ISR cache holds the published snapshot; an in-memory copy here would
+  // outlive `revalidatePath` on a reused instance and re-serve the old page.
+  revalidate: 0,
 });
+
+/**
+ * The website's content-change stream (Server-Sent Events) from the page
+ * service: one event per CMS change, used only as a "revalidate now" signal.
+ */
+export function contentChanges(signal: AbortSignal) {
+  const url = `${DATASET_ENDPOINT}/content-changes?websiteId=${MEDIAN_WEBSITE_ID}`;
+  return fetch(url, {
+    headers: { "x-api-key": MEDIAN_API_KEY ?? "", accept: "text/event-stream" },
+    cache: "no-store",
+    signal,
+  });
+}

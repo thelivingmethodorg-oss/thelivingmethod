@@ -25,8 +25,12 @@ bun dev
 - Document references in block content (pillars, blog posts, the Living Being
   record) arrive filled with the referenced document, so blocks only render them.
 
-Published changes in Median appear after the next build, so trigger a rebuild
-(for example a Vercel deploy hook) when you publish.
+Published changes appear without a rebuild: published pages open
+`/api/content-changes`, which relays the page service's `/content-changes` SSE stream
+(the API key stays on the server). On a change, `ContentChanges` calls the
+`revalidatePublished` server action, which purges the prerendered pages so the next
+request renders the newly published content. URLs published since the build render on
+their first request.
 
 ## Scripts
 
