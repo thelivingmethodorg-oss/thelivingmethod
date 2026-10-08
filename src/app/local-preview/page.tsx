@@ -18,8 +18,6 @@ import LivingTestimonial from "@/components/blocks/LivingTestimonial";
 import LivingFooter from "@/components/blocks/LivingFooter";
 import type { PillarDoc } from "@/lib/types";
 
-export const dynamic = "force-dynamic";
-
 export default async function LocalPreviewPage() {
   const seed = JSON.parse(
     readFileSync(join(process.cwd(), "cms-seed", "content.json"), "utf8")
@@ -46,7 +44,7 @@ export default async function LocalPreviewPage() {
       <LivingPillars content={pillarsContent} />
       <LivingSanctuary content={contentFor("living_sanctuary")} />
       <LivingBooking content={contentFor("living_booking")} />
-      <LivingTestimonial content={contentFor("living_testimonial")} />
+      <LivingTestimonial content={{ testimonials: [contentFor("living_testimonial")] }} />
       <LivingFooter content={contentFor("living_footer")} />
     </>
   );

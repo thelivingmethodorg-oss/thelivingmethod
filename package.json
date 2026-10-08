@@ -1,11 +1,10 @@
 {
-  "name": "my-profound-app",
+  "name": "thelivingmethod",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint",
     "generate-schemas": "bun scripts/generate-schemas.ts"
   },
@@ -13,7 +12,7 @@
     "next": "^16.1.1",
     "react": "^19",
     "react-dom": "^19",
-    "cms-renderer": "^0.8.2",
+    "cms-renderer": "^2.0.0",
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
     "react-markdown": "^10.1.0",

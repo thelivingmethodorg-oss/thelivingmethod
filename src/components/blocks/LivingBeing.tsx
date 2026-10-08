@@ -1,34 +1,9 @@
-import { configureSchema } from "cms-renderer/lib/schema";
-import type { BlockComponentProps } from "cms-renderer/lib/types";
-import { cmsConfig } from "@/lib/cms-config";
-import type { DocumentRef, LivingBeingDoc, LivingBeingSectionContent } from "@/lib/types";
+import type { BlockComponentProps } from "cms-renderer";
+import type { LivingBeingDoc, LivingBeingSectionContent } from "@/lib/types";
 
-function isRef(value: DocumentRef | LivingBeingDoc): value is DocumentRef {
-  return typeof value === "object" && value !== null && "_ref" in value;
-}
-
-/** Renders the Living Being section from its referenced headless CMS record. */
-export default async function LivingBeing({
-  content,
-}: BlockComponentProps<LivingBeingSectionContent>) {
-  let being: LivingBeingDoc | undefined = isRef(content.being) ? undefined : content.being;
-
-  if (isRef(content.being)) {
-    try {
-      const resolved = await configureSchema({
-        cmsUrl: cmsConfig.cmsUrl,
-        websiteId: cmsConfig.websiteId,
-        apiKey: cmsConfig.apiKey,
-      })
-        .name("living_being")
-        .fetchByIds<LivingBeingDoc>([content.being._ref]);
-      being = resolved.get(content.being._ref);
-    } catch (error) {
-      console.error("[LivingBeing] Failed to resolve living_being document:", error);
-      return null;
-    }
-  }
-
+/** Renders the Living Being section from its `living_being` document, filled in by the page read. */
+export default function LivingBeing({ content }: BlockComponentProps<LivingBeingSectionContent>) {
+  const being = content.being?.name ? (content.being as LivingBeingDoc) : undefined;
   if (!being) return null;
 
   return (

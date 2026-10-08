@@ -1,4 +1,4 @@
-import type { BlockComponentProps } from "cms-renderer/lib/types";
+import type { BlockComponentProps } from "cms-renderer";
 import type { LivingFooterContent } from "@/lib/types";
 import Icon from "@/components/Icon";
 

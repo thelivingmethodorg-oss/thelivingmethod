@@ -1,5 +1,5 @@
-import type { BlockComponentProps } from "cms-renderer/lib/types";
-import type { LivingSanctuaryContent } from "@/lib/types";
+import type { BlockComponentProps } from "cms-renderer";
+import { imageSrc, type LivingSanctuaryContent } from "@/lib/types";
 
 function MultiLine({ text }: { text: string }) {
   const lines = (text ?? "").split("\n");
@@ -18,7 +18,11 @@ function MultiLine({ text }: { text: string }) {
 export default function LivingSanctuary({
   content,
 }: BlockComponentProps<LivingSanctuaryContent>) {
-  const gallery = content.gallery ?? [];
+  // Sanctuary Image documents, filled by the page read; unpublished or imageless ones are skipped.
+  const gallery = (content.gallery ?? []).flatMap((item) => {
+    const src = imageSrc(item.image);
+    return src ? [{ src, alt: item.image?.alt || item.name || "", key: item._id ?? src }] : [];
+  });
 
   return (
     <section className="bg-white border-y border-stone/40 py-14">
@@ -33,17 +37,13 @@ export default function LivingSanctuary({
           </div>
 
           <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {gallery.map((url, i) => (
+            {gallery.map((photo) => (
               <div
-                key={`${url}-${i}`}
+                key={photo.key}
                 className="aspect-video rounded-2xl overflow-hidden border border-stone/30"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={url}
-                  className="w-full h-full object-cover"
-                  alt="The Living Method studio — natural textures and soft light"
-                />
+                <img src={photo.src} className="w-full h-full object-cover" alt={photo.alt} />
               </div>
             ))}
           </div>

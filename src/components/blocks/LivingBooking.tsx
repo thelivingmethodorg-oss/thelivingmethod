@@ -1,11 +1,11 @@
-import type { BlockComponentProps } from "cms-renderer/lib/types";
-import type { LivingBookingContent } from "@/lib/types";
+import type { BlockComponentProps } from "cms-renderer";
+import { hrefOf, type LivingBookingContent } from "@/lib/types";
 import Icon from "@/components/Icon";
 
 const DEFAULT_CALENDLY_URL = "https://calendly.com/thelivingmethod-org/30min";
 
 export default function LivingBooking({ content }: BlockComponentProps<LivingBookingContent>) {
-  const calendlyUrl = content.calendly_url || DEFAULT_CALENDLY_URL;
+  const calendlyUrl = hrefOf(content.calendly_url) ?? DEFAULT_CALENDLY_URL;
 
   return (
     <section id="book" className="max-w-screen-2xl mx-auto px-8 md:px-12 pt-16 pb-20">

@@ -1,5 +1,5 @@
-import type { BlockComponentProps } from "cms-renderer/lib/types";
-import type { LivingHeroContent } from "@/lib/types";
+import type { BlockComponentProps } from "cms-renderer";
+import { imageSrc, type LivingHeroContent } from "@/lib/types";
 import Icon from "@/components/Icon";
 
 /** Render a string with newlines as <br>-separated lines. */
@@ -18,11 +18,12 @@ function MultiLine({ text }: { text: string }) {
 }
 
 export default function LivingHero({ content }: BlockComponentProps<LivingHeroContent>) {
+  const background = imageSrc(content.image);
   return (
     <header className="relative h-[92vh] min-h-[680px] flex items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${content.image_url}')` }}
+        style={background ? { backgroundImage: `url('${background}')` } : undefined}
       >
         <div className="absolute inset-0 bg-beige/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-beige/10 via-transparent to-beige/40" />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { BlockComponentProps } from "cms-renderer/lib/types";
+import type { BlockComponentProps } from "cms-renderer";
 import type { LivingNavbarContent } from "@/lib/types";
 import Icon from "@/components/Icon";
 

@@ -1,42 +1,16 @@
-import { configureSchema } from "cms-renderer/lib/schema";
-import type { BlockComponentProps } from "cms-renderer/lib/types";
+import type { BlockComponentProps } from "cms-renderer";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { cmsConfig } from "@/lib/cms-config";
-import type { BlogListContent, BlogPost, DocumentRef } from "@/lib/types";
-
-function isRef(item: DocumentRef | BlogPost): item is DocumentRef {
-  return typeof item === "object" && item !== null && "_ref" in item;
-}
+import { type BlogListContent, type BlogPost, imageSrc } from "@/lib/types";
 
 const markdownPlugins = [remarkGfm];
 const richTextPlugins = [rehypeRaw, rehypeSanitize];
 
-/** Renders selected headless blog_post records on the blog landing page. */
-export default async function BlogList({ content }: BlockComponentProps<BlogListContent>) {
-  const entries = content.posts ?? [];
-  const ids = entries.filter(isRef).map((post) => post._ref);
-
-  let resolved = new Map<string, BlogPost>();
-  if (ids.length > 0) {
-    try {
-      resolved = await configureSchema({
-        cmsUrl: cmsConfig.cmsUrl,
-        websiteId: cmsConfig.websiteId,
-        apiKey: cmsConfig.apiKey,
-      })
-        .name("blog_post")
-        .fetchByIds<BlogPost>(ids);
-    } catch (error) {
-      console.error("[BlogList] Failed to resolve blog_post documents:", error);
-    }
-  }
-
-  const posts = entries
-    .map((post) => (isRef(post) ? resolved.get(post._ref) : post))
-    .filter((post): post is BlogPost => Boolean(post?.title));
+/** Renders the selected blog_post documents, filled in by the page read. */
+export default function BlogList({ content }: BlockComponentProps<BlogListContent>) {
+  const posts = (content.posts ?? []).filter((post): post is BlogPost => Boolean(post?.title));
 
   return (
     <section className="mx-auto max-w-screen-2xl px-8 py-20 md:px-12">
@@ -55,9 +29,9 @@ export default async function BlogList({ content }: BlockComponentProps<BlogList
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <article key={post._id ?? post.slug} className="overflow-hidden rounded-3xl border border-stone/50 bg-white">
-                {post.cover_image_url && (
+                {imageSrc(post.cover_image) && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={post.cover_image_url} alt={post.cover_image_alt ?? ""} className="aspect-[16/10] w-full object-cover" />
+                  <img src={imageSrc(post.cover_image)} alt={post.cover_image?.alt ?? ""} className="aspect-[16/10] w-full object-cover" />
                 )}
                 <div className="p-6">
                   <div className="mb-3 flex gap-3 text-xs tracking-wide text-sage uppercase">

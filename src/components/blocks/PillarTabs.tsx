@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { PillarDoc } from "@/lib/types";
+import { imageSrc, type PillarDoc } from "@/lib/types";
 import Icon from "@/components/Icon";
 
 export default function PillarTabs({ pillars }: { pillars: PillarDoc[] }) {
@@ -64,13 +64,15 @@ export default function PillarTabs({ pillars }: { pillars: PillarDoc[] }) {
               </div>
             </div>
             <div className="md:col-span-2">
-              <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-stone/40 serene-shadow">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={pillar.image_url}
-                  alt={pillar.image_alt}
-                  className="w-full h-full object-cover"
-                />
+              <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-stone/40 serene-shadow bg-sand/40">
+                {imageSrc(pillar.image) && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={imageSrc(pillar.image)}
+                    alt={pillar.image?.alt ?? ""}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
             </div>
           </div>

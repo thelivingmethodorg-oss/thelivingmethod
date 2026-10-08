@@ -1,25 +1,9 @@
-import { fetchAllCustomSchemaFields, saveZodSchemaCode } from 'cms-renderer/lib/custom-schemas';
-import { cmsConfig } from '../src/lib/cms-config';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { median } from '../src/lib/median';
 
 async function main() {
-  const { cmsUrl, websiteId } = cmsConfig;
-
-  if (!cmsUrl) {
-    throw new Error(
-      '[generate-schemas] NEXT_PUBLIC_CMS_API_URL is not set. Set it in your environment or .env file.'
-    );
-  }
-  if (!websiteId) {
-    throw new Error(
-      '[generate-schemas] NEXT_PUBLIC_PROFOUND_WEBSITE_ID is not set. Set it in your environment or .env file.'
-    );
-  }
-
-  await saveZodSchemaCode(
-    await fetchAllCustomSchemaFields(cmsConfig),
-    './generated/cms-schemas.ts'
-  );
-
+  await mkdir('./generated', { recursive: true });
+  await writeFile('./generated/cms-schemas.ts', await median.generateSchemas());
   console.log('[generate-schemas] Done.');
 }
 

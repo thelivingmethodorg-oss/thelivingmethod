@@ -1,4 +1,4 @@
-import type { BlockComponentProps } from "cms-renderer/lib/types";
+import type { BlockComponentProps } from "cms-renderer";
 import type { LivingPhilosophyContent } from "@/lib/types";
 
 function MultiLine({ text }: { text: string }) {

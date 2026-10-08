@@ -1,36 +1,19 @@
-/**
- * Preview Route for CMS Edit Mode
- *
- * Renders with force-dynamic so searchParams (edit_mode, ai_preview) are read at
- * request time, enabling the CMS template builder overlays.
- *
- * Production pages use /[[...slug]]/page.tsx. The proxy rewrites any request
- * carrying ?edit_mode / ?ai_preview to /cms-preview_/<path>.
- */
-
-import { ParametricRoutePreviewPage } from "cms-renderer/lib/renderer";
-import { cmsConfig } from "@/lib/cms-config";
+import { ParametricPreview } from "cms-renderer";
+import { notFound } from "next/navigation";
+import { cmsUrl, median } from "@/lib/median";
 import { registry } from "@/lib/registry";
 
-// Dynamic rendering - allows searchParams for edit_mode
+// `/cms-preview_/<path>`: the live draft, read on every request (never prerendered
+// or cached), with the overlay the CMS uses to select and edit blocks.
 export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{ slug?: string[] }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export default async function PreviewPage({ params, searchParams }: PageProps) {
-  const { slug } = await params;
-
-  return (
-    <ParametricRoutePreviewPage
-      registry={registry}
-      apiKey={cmsConfig.apiKey ?? ""}
-      websiteId={cmsConfig.websiteId}
-      cmsUrl={cmsConfig.cmsUrl}
-      params={Promise.resolve({ slug: slug ?? [] })}
-      searchParams={searchParams}
-    />
-  );
+export default async function PreviewPage({ params }: PageProps) {
+  const { slug = [] } = await params;
+  const page = await median.resolveComponent(`/${slug.join("/")}`, { preview: true });
+  if (!page) notFound();
+  return <ParametricPreview page={page} registry={registry} cmsUrl={cmsUrl} />;
 }

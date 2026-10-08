@@ -1,18 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: "frame-ancestors 'self' https://*.tryprofound.com https://*.vercel.app",
-          },
-        ],
-      },
-    ];
-  },
+  images: { unoptimized: true },
+  // cms-renderer 2.0.0 bundles a Markdown WASM loader Turbopack cannot follow;
+  // Node loads the package as-is instead. Remove once on cms-renderer >= 2.0.1.
+  serverExternalPackages: ["cms-renderer"],
 };
 
 export default nextConfig;
