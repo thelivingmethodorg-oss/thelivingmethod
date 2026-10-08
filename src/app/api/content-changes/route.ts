@@ -7,7 +7,9 @@ export const maxDuration = 300;
 
 /** Relay the page service's content-change stream; the API key stays here. */
 export async function GET(request: Request) {
-  const upstream = await contentChanges(request.signal).catch(() => null);
+  const since =
+    request.headers.get("last-event-id") ?? new URL(request.url).searchParams.get("since");
+  const upstream = await contentChanges(request.signal, since).catch(() => null);
   if (!upstream?.ok || !upstream.body) {
     return new Response(null, { status: 502 });
   }

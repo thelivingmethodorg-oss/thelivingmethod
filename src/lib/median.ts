@@ -27,14 +27,17 @@ export const median = new Median({
 });
 
 /**
- * The website's content-change stream (Server-Sent Events) from the page
- * service: one event per CMS change, used only as a "revalidate now" signal.
+ * The website's published-change stream (Server-Sent Events) from the page
+ * service: one event per change to published pages, each with the website's
+ * new published version as its id. `since` is the last version the browser
+ * saw (`Last-Event-ID` on reconnect): when the website has moved on, an event
+ * arrives at once, so changes made while disconnected are not missed.
+ *
+ * cms-renderer >= 2.1 has this as `median.relayContentChanges(request)`.
  */
-export function contentChanges(signal: AbortSignal) {
+export function contentChanges(signal: AbortSignal, since: string | null) {
   const url = `${DATASET_ENDPOINT}/content-changes?websiteId=${MEDIAN_WEBSITE_ID}`;
-  return fetch(url, {
-    headers: { "x-api-key": apiKey, accept: "text/event-stream" },
-    cache: "no-store",
-    signal,
-  });
+  const headers: Record<string, string> = { "x-api-key": apiKey, accept: "text/event-stream" };
+  if (since && /^\d+$/.test(since)) headers["last-event-id"] = since;
+  return fetch(url, { headers, cache: "no-store", signal });
 }
