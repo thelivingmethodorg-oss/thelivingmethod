@@ -7,13 +7,17 @@ const DATASET_ENDPOINT = "https://tensorzero-csv-848689284230.us-central1.run.ap
 
 // The API key stays in the environment: it can read drafts.
 const { MEDIAN_API_KEY, MEDIAN_CMS_URL } = process.env;
+if (!MEDIAN_API_KEY) {
+  throw new Error("MEDIAN_API_KEY is not set: published and draft reads need it.");
+}
+const apiKey: string = MEDIAN_API_KEY;
 
 /** The CMS origin that frames draft previews; their edit messages go only there. */
 export const cmsUrl = MEDIAN_CMS_URL || "https://app.mediancms.com";
 
 /** The site's Median client. */
 export const median = new Median({
-  apiKey: MEDIAN_API_KEY,
+  apiKey,
   datasetEndpoint: DATASET_ENDPOINT,
   websiteId: MEDIAN_WEBSITE_ID,
   registry,
@@ -29,7 +33,7 @@ export const median = new Median({
 export function contentChanges(signal: AbortSignal) {
   const url = `${DATASET_ENDPOINT}/content-changes?websiteId=${MEDIAN_WEBSITE_ID}`;
   return fetch(url, {
-    headers: { "x-api-key": MEDIAN_API_KEY ?? "", accept: "text/event-stream" },
+    headers: { "x-api-key": apiKey, accept: "text/event-stream" },
     cache: "no-store",
     signal,
   });
