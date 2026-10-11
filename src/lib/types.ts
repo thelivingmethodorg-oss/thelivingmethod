@@ -4,6 +4,9 @@
  * (see cms-seed/components.json).
  */
 
+import type { BlockLayout } from "cms-renderer";
+import type { CSSProperties } from "react";
+
 export interface LivingNavbarContent {
   brand: string;
   nav_links: string[];
@@ -44,6 +47,14 @@ export interface ImageValue {
   alt?: string;
   caption?: string;
   _asset?: { id: string; url?: string };
+}
+
+/** How a block's photos fill their frames: its CMS Appearance image fit and position. */
+export function imageStyle(layout: BlockLayout | null | undefined): CSSProperties {
+  return {
+    objectFit: layout?.backgroundImageFit ?? "cover",
+    objectPosition: layout?.backgroundImagePosition ?? "center",
+  };
 }
 
 /** The image's address, or `undefined` when none is chosen. */

@@ -1,4 +1,4 @@
-import type { BlockComponentProps } from "cms-renderer";
+import { type BlockComponentProps, normalizeAlignment } from "cms-renderer";
 import { imageSrc, type LivingHeroContent } from "@/lib/types";
 import Icon from "@/components/Icon";
 
@@ -17,33 +17,62 @@ function MultiLine({ text }: { text: string }) {
   );
 }
 
-export default function LivingHero({ content }: BlockComponentProps<LivingHeroContent>) {
+const TEXT_ALIGN = { left: "text-left", center: "text-center", right: "text-right" } as const;
+const JUSTIFY = { left: "justify-start", center: "justify-center", right: "justify-end" } as const;
+const ITEMS = { left: "items-start", center: "items-center", right: "items-end" } as const;
+const MARGIN = { left: "mr-auto", center: "mx-auto", right: "ml-auto" } as const;
+
+export default function LivingHero({ content, layout }: BlockComponentProps<LivingHeroContent>) {
   const background = imageSrc(content.image);
+  const align = normalizeAlignment(layout?.alignment) ?? "center";
+  const textColor = layout?.textColor;
   return (
-    <header className="relative h-[92vh] min-h-[680px] flex items-center justify-center overflow-hidden">
+    <header
+      className="relative h-[92vh] min-h-[680px] flex items-center justify-center overflow-hidden"
+      style={layout?.backgroundColor ? { backgroundColor: layout.backgroundColor } : undefined}
+    >
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={background ? { backgroundImage: `url('${background}')` } : undefined}
+        className="absolute inset-0 bg-no-repeat"
+        style={
+          background
+            ? {
+                backgroundImage: `url('${background}')`,
+                backgroundSize: layout?.backgroundImageFit ?? "cover",
+                backgroundPosition: layout?.backgroundImagePosition ?? "center",
+              }
+            : undefined
+        }
       >
         <div className="absolute inset-0 bg-beige/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-beige/10 via-transparent to-beige/40" />
       </div>
 
-      <div className="relative z-10 max-w-4xl px-6 text-center">
+      <div
+        className={`relative z-10 w-full max-w-4xl px-6 ${TEXT_ALIGN[align]}`}
+        style={textColor ? { color: textColor } : undefined}
+      >
         <div className="inline-flex items-center gap-x-2 px-4 py-1 rounded-full bg-white/70 backdrop-blur-sm mb-6 border border-stone/50">
           <div className="w-1.5 h-1.5 bg-sage rounded-full animate-pulse" />
-          <span className="text-xs tracking-[2px] font-medium text-warmgray">{content.badge}</span>
+          <span className={`text-xs tracking-[2px] font-medium ${textColor ? "" : "text-warmgray"}`}>
+            {content.badge}
+          </span>
         </div>
 
-        <h1 className="heading-serif text-6xl md:text-7xl leading-[1.05] tracking-tighter text-charcoal mb-6">
+        <h1
+          className={`heading-serif text-6xl md:text-7xl leading-[1.05] tracking-tighter mb-6 ${textColor ? "" : "text-charcoal"}`}
+        >
           <MultiLine text={content.heading} />
         </h1>
 
-        <p className="max-w-md mx-auto text-lg text-warmgray mb-10 tracking-wide">
+        <p
+          className={`max-w-md ${MARGIN[align]} text-lg mb-10 tracking-wide ${textColor ? "opacity-80" : "text-warmgray"}`}
+        >
           <MultiLine text={content.subheading} />
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div
+          className={`flex flex-col sm:flex-row ${ITEMS[align]} sm:items-center ${JUSTIFY[align]} gap-4`}
+        >
           <a
             href={content.primary_cta_href}
             className="minimal-button group inline-flex items-center justify-center gap-x-3 px-10 py-4 bg-charcoal text-white rounded-full text-sm tracking-[1.75px] font-medium hover:bg-sage"
@@ -57,7 +86,7 @@ export default function LivingHero({ content }: BlockComponentProps<LivingHeroCo
 
           <a
             href={content.secondary_cta_href}
-            className="inline-flex items-center justify-center gap-x-2 px-8 py-4 text-sm tracking-[1.5px] font-medium text-warmgray hover:text-charcoal transition-colors"
+            className={`inline-flex items-center justify-center gap-x-2 px-8 py-4 text-sm tracking-[1.5px] font-medium transition-colors ${textColor ? "hover:opacity-70" : "text-warmgray hover:text-charcoal"}`}
           >
             <span>{content.secondary_cta_label}</span>
           </a>

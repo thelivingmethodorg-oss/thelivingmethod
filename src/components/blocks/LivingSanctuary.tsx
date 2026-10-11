@@ -1,5 +1,5 @@
 import type { BlockComponentProps } from "cms-renderer";
-import { imageSrc, type LivingSanctuaryContent } from "@/lib/types";
+import { imageSrc, imageStyle, type LivingSanctuaryContent } from "@/lib/types";
 
 function MultiLine({ text }: { text: string }) {
   const lines = (text ?? "").split("\n");
@@ -17,6 +17,7 @@ function MultiLine({ text }: { text: string }) {
 
 export default function LivingSanctuary({
   content,
+  layout,
 }: BlockComponentProps<LivingSanctuaryContent>) {
   // Sanctuary Image documents, filled by the page read; unpublished or imageless ones are skipped.
   const gallery = (content.gallery ?? []).flatMap((item) => {
@@ -43,7 +44,7 @@ export default function LivingSanctuary({
                 className="aspect-video rounded-2xl overflow-hidden border border-stone/30"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={photo.src} className="w-full h-full object-cover" alt={photo.alt} />
+                <img src={photo.src} className="w-full h-full" style={imageStyle(layout)} alt={photo.alt} />
               </div>
             ))}
           </div>

@@ -33,7 +33,7 @@ export const median = new Median({
  * saw (`Last-Event-ID` on reconnect): when the website has moved on, an event
  * arrives at once, so changes made while disconnected are not missed.
  *
- * cms-renderer >= 2.1 has this as `median.relayContentChanges(request)`.
+ * cms-renderer >= 2.0.3 has this as `median.relayContentChanges(request)`.
  */
 export function contentChanges(signal: AbortSignal, since: string | null) {
   const url = `${DATASET_ENDPOINT}/content-changes?websiteId=${MEDIAN_WEBSITE_ID}`;

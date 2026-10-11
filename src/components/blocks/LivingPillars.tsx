@@ -6,7 +6,7 @@ import PillarTabs from "./PillarTabs";
  * The pillars are `living_pillar` documents: the page read fills each
  * reference with its document, so the block only renders them.
  */
-export default function LivingPillars({ content }: BlockComponentProps<LivingPillarsContent>) {
+export default function LivingPillars({ content, layout }: BlockComponentProps<LivingPillarsContent>) {
   const pillars = (content.pillars ?? []).filter((p): p is PillarDoc => Boolean(p?.name));
 
   return (
@@ -20,7 +20,7 @@ export default function LivingPillars({ content }: BlockComponentProps<LivingPil
           <p className="max-w-md text-warmgray">{content.subheading}</p>
         </div>
 
-        {pillars.length > 0 && <PillarTabs pillars={pillars} />}
+        {pillars.length > 0 && <PillarTabs pillars={pillars} layout={layout} />}
       </div>
     </section>
   );

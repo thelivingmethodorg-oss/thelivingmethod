@@ -1,10 +1,18 @@
 "use client";
 
+import type { BlockLayout } from "cms-renderer";
 import { useState } from "react";
-import { imageSrc, type PillarDoc } from "@/lib/types";
+import { imageSrc, imageStyle, type PillarDoc } from "@/lib/types";
 import Icon from "@/components/Icon";
 
-export default function PillarTabs({ pillars }: { pillars: PillarDoc[] }) {
+export default function PillarTabs({
+  pillars,
+  layout,
+}: {
+  pillars: PillarDoc[];
+  /** The Living Pillars block's layout: its image fit and position. */
+  layout?: BlockLayout | null;
+}) {
   const [active, setActive] = useState(0);
   const pillar = pillars[active];
 
@@ -70,7 +78,8 @@ export default function PillarTabs({ pillars }: { pillars: PillarDoc[] }) {
                   <img
                     src={imageSrc(pillar.image)}
                     alt={pillar.image?.alt ?? ""}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full"
+                    style={imageStyle(layout)}
                   />
                 )}
               </div>

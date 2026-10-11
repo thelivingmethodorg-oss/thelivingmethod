@@ -1,27 +1,23 @@
 "use client";
 
+import { watchContentChanges } from "cms-renderer";
 import { useEffect } from "react";
 import { revalidatePublished } from "@/app/actions";
 
-// A publish arrives as a burst of row changes; act once it settles.
-const SETTLE_MS = 1000;
-
 /**
  * Listens to the CMS content-change stream and, after a change, revalidates the
- * prerendered pages; the server action's response re-renders this page.
+ * prerendered pages; the server action's response re-renders this page. `since`
+ * is the version the page was rendered from, so a page cached before a publish
+ * hears about it the moment it opens.
  */
-export function ContentChanges() {
-  useEffect(() => {
-    const source = new EventSource("/api/content-changes");
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    source.onmessage = () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => void revalidatePublished(), SETTLE_MS);
-    };
-    return () => {
-      clearTimeout(timer);
-      source.close();
-    };
-  }, []);
+export function ContentChanges({ since }: { since: number | null }) {
+  useEffect(
+    () =>
+      watchContentChanges("/api/content-changes", {
+        since,
+        onChange: () => void revalidatePublished(),
+      }),
+    [since]
+  );
   return null;
 }

@@ -12,7 +12,7 @@
     "next": "^16.1.1",
     "react": "^19",
     "react-dom": "^19",
-    "cms-renderer": "^2.0.0",
+    "cms-renderer": "^2.0.4",
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
     "react-markdown": "^10.1.0",

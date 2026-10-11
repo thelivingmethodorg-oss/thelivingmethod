@@ -3,13 +3,13 @@ import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { type BlogListContent, type BlogPost, imageSrc } from "@/lib/types";
+import { type BlogListContent, type BlogPost, imageSrc, imageStyle } from "@/lib/types";
 
 const markdownPlugins = [remarkGfm];
 const richTextPlugins = [rehypeRaw, rehypeSanitize];
 
 /** Renders the selected blog_post documents, filled in by the page read. */
-export default function BlogList({ content }: BlockComponentProps<BlogListContent>) {
+export default function BlogList({ content, layout }: BlockComponentProps<BlogListContent>) {
   const posts = (content.posts ?? []).filter((post): post is BlogPost => Boolean(post?.title));
 
   return (
@@ -31,7 +31,7 @@ export default function BlogList({ content }: BlockComponentProps<BlogListConten
               <article key={post._id ?? post.slug} className="overflow-hidden rounded-3xl border border-stone/50 bg-white">
                 {imageSrc(post.cover_image) && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={imageSrc(post.cover_image)} alt={post.cover_image?.alt ?? ""} className="aspect-[16/10] w-full object-cover" />
+                  <img src={imageSrc(post.cover_image)} alt={post.cover_image?.alt ?? ""} className="aspect-[16/10] w-full" style={imageStyle(layout)} />
                 )}
                 <div className="p-6">
                   <div className="mb-3 flex gap-3 text-xs tracking-wide text-sage uppercase">

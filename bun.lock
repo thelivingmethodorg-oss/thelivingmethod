@@ -5,7 +5,7 @@
     "": {
       "name": "thelivingmethod",
       "dependencies": {
-        "cms-renderer": "^2.0.0",
+        "cms-renderer": "^2.0.4",
         "next": "^16.1.1",
         "react": "^19",
         "react-dom": "^19",
@@ -197,7 +197,7 @@
 
     "client-only": ["client-only@0.0.1", "", {}, "sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA=="],
 
-    "cms-renderer": ["cms-renderer@2.0.0", "", { "dependencies": { "escape-string-regexp": "^5.0.0", "shiki": "^4.0.2" }, "peerDependencies": { "@tanstack/react-router": "*", "next": "*", "react": "^19.1.0", "react-dom": "^19.1.0" }, "optionalPeers": ["@tanstack/react-router", "next"] }, "sha512-2L/0xi7esalw7/gvYt1HoDBCFt7R+RAMd/C+Yo6y0cC3OX0CU3OZJwCBecsoY5OdQv1LhpVP4b0TJIRw/3Neiw=="],
+    "cms-renderer": ["cms-renderer@2.0.4", "", { "dependencies": { "escape-string-regexp": "^5.0.0", "shiki": "^4.0.2" }, "peerDependencies": { "@tanstack/react-router": "*", "next": "*", "react": "^19.1.0", "react-dom": "^19.1.0" }, "optionalPeers": ["@tanstack/react-router", "next"] }, "sha512-3+KsPUj6izdI8IJAzP/CD2jym/DrMlW9iJjNZ/FifToy+REMhU6BboedT487wKu+sD0y94Cbw/j9r6/Y9RUniw=="],
 
     "comma-separated-tokens": ["comma-separated-tokens@2.0.3", "", {}, "sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg=="],
 
