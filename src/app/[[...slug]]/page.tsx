@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ParametricPage } from "cms-renderer";
 import { notFound } from "next/navigation";
 import { ContentChanges } from "@/components/ContentChanges";
@@ -17,6 +18,29 @@ export async function generateStaticParams() {
 
 interface PageProps {
   params: Promise<{ slug?: string[] }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug = [] } = await params;
+  const path = `/${slug.map(encodeURIComponent).join("/")}`;
+  const title = slug.length
+    ? slug[slug.length - 1]
+        .replace(/[-_]+/g, " ")
+        .replace(/\b\w/g, (character) => character.toUpperCase())
+    : undefined;
+
+  return {
+    ...(title ? { title } : {}),
+    alternates: { canonical: path },
+    openGraph: {
+      type: "website",
+      siteName: "The Living Method",
+      url: path,
+      title: title ? `${title} | The Living Method` : "The Living Method | Wabi-Sabi Wellness in Brooklyn",
+      description:
+        "Explore breathwork, guided meditation, and elemental wellness with The Living Method, a Wabi-Sabi inspired sanctuary in Brooklyn, New York.",
+    },
+  };
 }
 
 export default async function Page({ params }: PageProps) {

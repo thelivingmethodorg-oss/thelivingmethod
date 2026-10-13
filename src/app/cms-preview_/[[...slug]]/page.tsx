@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ParametricPreview } from "cms-renderer";
 import { notFound } from "next/navigation";
 import { cmsUrl, median } from "@/lib/median";
@@ -6,6 +7,11 @@ import { registry } from "@/lib/registry";
 // `/cms-preview_/<path>`: the live draft, read on every request (never prerendered
 // or cached), with the overlay the CMS uses to select and edit blocks.
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "CMS preview",
+  robots: { index: false, follow: false, noarchive: true },
+};
 
 interface PageProps {
   params: Promise<{ slug?: string[] }>;
